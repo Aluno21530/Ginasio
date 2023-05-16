@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Ginasio",
+    "\\Ginasio\\Controllers"
   ],
-  "SelectedNode": "\\Ginasio.sln",
+  "SelectedNode": "\\Ginasio\\Controllers\\FuncionariosLimpezasController.cs",
   "PreviewInSolutionExplorer": false
 }
