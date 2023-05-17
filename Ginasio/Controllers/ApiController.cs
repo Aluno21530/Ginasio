@@ -1,4 +1,5 @@
 ﻿using Ginasio.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ginasio.Controllers
@@ -22,7 +23,8 @@ namespace Ginasio.Controllers
             return Ok(_context.Administradores.ToList());
         }
 
-        [Route("{id}")]
+        [Authorize]
+        [Route("administradores/{id}")]
         [HttpGet]
         public ActionResult GetAdministradoresById(int id)
         {

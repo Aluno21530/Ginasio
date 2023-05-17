@@ -13,9 +13,11 @@ namespace Ginasio.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index([FromQuery(Name = "nome")] string nome)
         {
-            return View();
+            Praticantes pt = new Praticantes();
+            pt.Nome = nome;
+            return View(pt);
         }
 
         public IActionResult Privacy()
