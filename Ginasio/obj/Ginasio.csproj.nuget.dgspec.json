@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gusta\\source\\repos\\Ginasio\\Ginasio\\Ginasio.csproj": {}
+    "C:\\Users\\joaom\\source\\repos\\Ginasiov2\\Ginasio\\Ginasio.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gusta\\source\\repos\\Ginasio\\Ginasio\\Ginasio.csproj": {
+    "C:\\Users\\joaom\\source\\repos\\Ginasiov2\\Ginasio\\Ginasio.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gusta\\source\\repos\\Ginasio\\Ginasio\\Ginasio.csproj",
+        "projectUniqueName": "C:\\Users\\joaom\\source\\repos\\Ginasiov2\\Ginasio\\Ginasio.csproj",
         "projectName": "Ginasio",
-        "projectPath": "C:\\Users\\gusta\\source\\repos\\Ginasio\\Ginasio\\Ginasio.csproj",
-        "packagesPath": "C:\\Users\\gusta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gusta\\source\\repos\\Ginasio\\Ginasio\\obj\\",
+        "projectPath": "C:\\Users\\joaom\\source\\repos\\Ginasiov2\\Ginasio\\Ginasio.csproj",
+        "packagesPath": "C:\\Users\\joaom\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joaom\\source\\repos\\Ginasiov2\\Ginasio\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gusta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\joaom\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -33,7 +33,7 @@ namespace Ginasio.Models
         /// <summary>
         /// Idade do administrador
         /// </summary>
-        [RegularExpression("^\\d{1,3}$", ErrorMessage = "Insira uma {0} válida")]
+        [Range(18, 100, ErrorMessage = "A idade deve estar entre 18 e 100")]
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
         public int Idade { get; set; }
 
@@ -78,6 +78,7 @@ namespace Ginasio.Models
         /// </summary>
         //NAO FUNCIONOU [Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
         //NAO FUNCIONOU [RegularExpression("[a-z._0-9]+gmail.com", ErrorMessage = "O {0} deve ser do tipo @gmail.com")]
+        [RegularExpression(@"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$", ErrorMessage = "O email tem de ter um formato válido")]
         [StringLength(40)]
         public string Email { get; set; }
 
@@ -98,6 +99,7 @@ namespace Ginasio.Models
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
         //[StringLength(10)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "O {0} deve ser numérico")]
+        //[Range(0, double.MaxValue, ErrorMessage = "O salário tem de ter um valor positivo")]
         public int Salario { get; set; }
 
         /// <summary>
