@@ -31,17 +31,20 @@ namespace Ginasio.Models
         /// <summary>
         /// Horário de início da aula
         /// </summary>
-        
+
+        [RegularExpression(@"^\d{2}:\d{2}$", ErrorMessage = "O horário deve estar no formato HH:mm")]
         public string Horario { get; set; }
 
         /// <summary>
         /// Duração da aula
         /// </summary>
+        [Range(1, int.MaxValue, ErrorMessage = "A duração tem de ser um valor inteiro positivo")]
         public int Duracao { get; set; }
 
         /// <summary>
         /// Capacidade máxima de participantes da aula
         /// </summary>
+        [Range(1, int.MaxValue, ErrorMessage = "A capacidade tem de ser um valor inteiro positivo")]
         public int Capacidade { get; set; }
 
         /// <summary>

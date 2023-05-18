@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ginasio.Models
 {
@@ -10,28 +12,37 @@ namespace Ginasio.Models
         }
 
         /// <summary>
-        /// Id do treinamento
+        /// Id do treino
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Nome do treinamento
+        /// Nome do treino
         /// </summary>
+        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
+        [RegularExpression(@"^[A-Za-zÀ-ÿ\s]+$", ErrorMessage = "O nome do treino deve conter apenas letras.")]
         public string Nome { get; set; }
 
         /// <summary>
-        /// Breve desxrição do treinamento
+        /// Breve descrição do treino
         /// </summary>
+        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
         public string Descricao { get; set; }
 
         /// <summary>
-        /// Data de início do treinamento
+        /// Data de início do treino
         /// </summary>
-        public DateTime DataInicio { get; set; }
+        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
+        [DisplayName("Data de inicio")]
+        [RegularExpression("^(?:(?:31\\/(?:0?[13578]|1[02]))|(?:(?:29|30)\\/(?:0?[1,3-9]|1[0-2]))|(?:29\\/0?2)|(?:(?:0?[1-9])|(?:1\\d)|(?:2[0-8]))\\/(?:0?[1-9]|1[0-2]))\\/(?:[1-9]\\d{3})$", ErrorMessage = "A data deve ser válida e do tipo XX/XX/XXXX")]
+        public string DataInicio { get; set; }
 
         /// <summary>
-        /// Data de término do treinamento
+        /// Data de término do treino
         /// </summary>
+        [Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
+        [DisplayName("Data de fim de treino")]
+        [RegularExpression("^(?:(?:31\\/(?:0?[13578]|1[02]))|(?:(?:29|30)\\/(?:0?[1,3-9]|1[0-2]))|(?:29\\/0?2)|(?:(?:0?[1-9])|(?:1\\d)|(?:2[0-8]))\\/(?:0?[1-9]|1[0-2]))\\/(?:[1-9]\\d{3})$", ErrorMessage = "A data deve ser válida e do tipo XX/XX/XXXX")]
         public DateTime DataTermino { get; set; }
 
         /// <summary>
