@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ginasio.Models
 {
@@ -12,22 +13,26 @@ namespace Ginasio.Models
         /// <summary>
         /// Id da aula
         /// </summary>
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary>
         /// Nome da aula
         /// </summary>
+        [StringLength(20)]
         public string Nome { get; set; }
 
         /// <summary>
         /// Breve descrição sobre a aula
         /// </summary>
+        [StringLength(100)]
         public string Descricao { get; set; }
 
         /// <summary>
         /// Horário de início da aula
         /// </summary>
-        public DateTime Horario { get; set; }
+        
+        public string Horario { get; set; }
 
         /// <summary>
         /// Duração da aula

@@ -1,4 +1,5 @@
 ﻿using Ginasio.Data;
+using Ginasio.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,64 +9,210 @@ namespace Ginasio.Controllers
     [Route("[controller]")]
     public class ApiController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _db;
 
         public ApiController(ApplicationDbContext context)
         {
-            _context = context;
+            _db = context;
         }
-
+        /// <summary>
+        /// GET dos administradores
+        /// </summary>
         [HttpGet]
         [Route("administradores")]
         public ActionResult GetAdministradores()
 
         {
-            return Ok(_context.Administradores.ToList());
+            return Ok(_db.Administradores.ToList());
         }
-
-        [Authorize]
+        /// <summary>
+        /// GET dos administradores pelo Id
+        /// </summary>
         [Route("administradores/{id}")]
         [HttpGet]
         public ActionResult GetAdministradoresById(int id)
         {
-            if(id == 0 || _context.Administradores.Where(admin => admin.Id == id).Count()==0)
+            if(id == 0 || _db.Administradores.Where(admin => admin.Id == id).Count()==0)
             {
                 return NotFound();
             }
 
-            return Ok(_context.Administradores.Where(admin => admin.Id==id).FirstOrDefault());
+            return Ok(_db.Administradores.Where(admin => admin.Id==id).FirstOrDefault());
         }
+        /// <summary>
+        /// POST dos administradores
+        /// </summary>
+        [HttpPost("administradores/create")]
+        public IActionResult CreateAdministrador(Administradores administradores)
+        {
+           
+            _db.Add(administradores);
+
+            return CreatedAtAction(nameof(GetAdministradores), new { id = administradores.Id }, administradores);
+        }
+        /// <summary>
+        /// GET das aulas
+        /// </summary>
         [Route("aulas")]
         [HttpGet]
         public ActionResult GetAulas() {
-            return Ok(_context.Aulas.ToList());
+            return Ok(_db.Aulas.ToList());
         }
-        [Route("{id}")]
+        /// <summary>
+        /// GET das aulas pelo Id
+        /// </summary>
+        [Route("aulas/{id}")]
         [HttpGet]
         public ActionResult GetAulasById(int id)
         {
-            if(id == 0 || _context.Aulas.Where(admin => admin.Id == id).Count() == 0)
+            if(id == 0 || _db.Aulas.Where(admin => admin.Id == id).Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(_context.Aulas.Where(admin =>admin.Id==id).FirstOrDefault());
+            return Ok(_db.Aulas.Where(admin =>admin.Id==id).FirstOrDefault());
         }
+        /// <summary>
+        /// POST das aulas
+        /// </summary>
+        [HttpPost("aulas/create")]
+        public IActionResult CreateAula(Aulas aulas)
+        {
+
+            _db.Add(aulas);
+
+            return CreatedAtAction(nameof(GetAulas), new { id = aulas.Id }, aulas);
+        }
+        /// <summary>
+        /// GET dos funcionários
+        /// </summary>
         [Route("funcionarios")]
         [HttpGet]
         public ActionResult GetFuncionarios()
         {
-            return Ok(_context.FuncionariosLimpeza.ToList());
+            return Ok(_db.FuncionariosLimpeza.ToList());
         }
-        [Route("{id}")]
+        /// <summary>
+        /// GET dos funcionários pelo Id
+        /// </summary>
+        [Route("funcionarios/{id}")]
         [HttpGet]
         public ActionResult GetFuncionarioById(int id)
         {
-            if (id == 0 || _context.FuncionariosLimpeza.Where(admin => admin.Id == id).Count() == 0)
+            if (id == 0 || _db.FuncionariosLimpeza.Where(admin => admin.Id == id).Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(_context.FuncionariosLimpeza.Where(admin => admin.Id == id).FirstOrDefault());
+            return Ok(_db.FuncionariosLimpeza.Where(admin => admin.Id == id).FirstOrDefault());
         }
+        /// <summary>
+        /// POST dos funcionários
+        /// </summary>
+        [HttpPost("funcionarios/create")]
+        public IActionResult CreateFuncionario(FuncionariosLimpeza funcionario)
+        {
 
+            _db.Add(funcionario);
+
+            return CreatedAtAction(nameof(GetFuncionarios), new { id = funcionario.Id }, funcionario);
+        }
+        /// <summary>
+        /// GET dos instrutores
+        /// </summary>
+        [Route("instrutores")]
+        [HttpGet]
+        public ActionResult GetInstrutores()
+        {
+            return Ok(_db.Instrutores.ToList());
+        }
+        /// <summary>
+        /// GET dos instrutores pelo Id
+        /// </summary>
+        [Route("instrutores/{id}")]
+        [HttpGet]
+        public ActionResult GetInstrutorById(int id)
+        {
+            if (id == 0 || _db.Instrutores.Where(admin => admin.Id == id).Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(_db.Instrutores.Where(admin => admin.Id == id).FirstOrDefault());
+        }
+        /// <summary>
+        /// POST dos instrutores
+        /// </summary>
+        [HttpPost("instrutores/create")]
+        public IActionResult CreateInstrutor(Instrutores instrutor)
+        {
+
+            _db.Add(instrutor);
+
+            return CreatedAtAction(nameof(GetInstrutores), new { id = instrutor.Id }, instrutor);
+        }
+        /// <summary>
+        /// GET dos praticantes
+        /// </summary>
+        [Route("praticantes")]
+        [HttpGet]
+        public ActionResult GetPraticantes()
+        {
+            return Ok(_db.Praticantes.ToList());
+        }
+        /// <summary>
+        /// GET dos praticantes pelo Id
+        /// </summary>
+        [Route("praticantes/{id}")]
+        [HttpGet]
+        public ActionResult GetPraticanteById(int id)
+        {
+            if (id == 0 || _db.Praticantes.Where(admin => admin.Id == id).Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(_db.Praticantes.Where(admin => admin.Id == id).FirstOrDefault());
+        }
+        /// <summary>
+        /// POST dos praticantes
+        /// </summary>
+        [HttpPost("praticantes/create")]
+        public IActionResult CreatePraticante(Praticantes praticante)
+        {
+
+            _db.Add(praticante);
+
+            return CreatedAtAction(nameof(GetPraticantes), new { id = praticante.Id }, praticante);
+        }
+        /// <summary>
+        /// GET dos treinamentos
+        /// </summary>
+        [Route("treinamentos")]
+        [HttpGet]
+        public ActionResult GetTreinamentos()
+        {
+            return Ok(_db.Treinamentos.ToList());
+        }
+        /// <summary>
+        /// GET dos treinamentos pelo Id
+        /// </summary>
+        [Route("treinamentos/{id}")]
+        [HttpGet]
+        public ActionResult GetTreinamentoById(int id)
+        {
+            if (id == 0 || _db.Treinamentos.Where(admin => admin.Id == id).Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(_db.Treinamentos.Where(admin => admin.Id == id).FirstOrDefault());
+        }
+        /// <summary>
+        /// POST dos administradores
+        /// </summary>
+        [HttpPost("treinamentos/create")]
+        public IActionResult CreateTreinamento(Treinamentos treinamento)
+        {
+
+            _db.Add(treinamento);
+
+            return CreatedAtAction(nameof(GetTreinamentos), new { id = treinamento.Id }, treinamento);
+        }
     }
 }
