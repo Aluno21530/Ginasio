@@ -109,5 +109,10 @@ namespace Ginasio.Models
         /// Lista de treinamentos que o praticante participa
         /// </summary>
         public ICollection<Treinamentos> ListaTreinamentos { get; set; }
+
+        /// <summary>
+        /// lista das fotografias associadas a um praticante
+        /// </summary>
+        public ICollection<Fotografias> ListaFotografias { get; set; }
     }
 }

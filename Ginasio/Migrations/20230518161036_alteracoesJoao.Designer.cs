@@ -4,6 +4,7 @@ using Ginasio.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ginasio.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230518161036_alteracoesJoao")]
+    partial class alteracoesJoao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,33 +136,6 @@ namespace Ginasio.Migrations
                     b.HasIndex("InstrutorFK");
 
                     b.ToTable("Aulas");
-                });
-
-            modelBuilder.Entity("Ginasio.Models.Fotografias", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("InstrutorFK")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NomeFicheiro")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PraticanteFK")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InstrutorFK");
-
-                    b.HasIndex("PraticanteFK");
-
-                    b.ToTable("Fotografias");
                 });
 
             modelBuilder.Entity("Ginasio.Models.FuncionariosLimpeza", b =>
@@ -614,25 +590,6 @@ namespace Ginasio.Migrations
                     b.Navigation("Instrutor");
                 });
 
-            modelBuilder.Entity("Ginasio.Models.Fotografias", b =>
-                {
-                    b.HasOne("Ginasio.Models.Instrutores", "Instrutor")
-                        .WithMany("ListaFotografias")
-                        .HasForeignKey("InstrutorFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Ginasio.Models.Praticantes", "Praticante")
-                        .WithMany("ListaFotografias")
-                        .HasForeignKey("PraticanteFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Instrutor");
-
-                    b.Navigation("Praticante");
-                });
-
             modelBuilder.Entity("Ginasio.Models.FuncionariosLimpeza", b =>
                 {
                     b.HasOne("Ginasio.Models.Administradores", "Administrador")
@@ -725,14 +682,7 @@ namespace Ginasio.Migrations
                 {
                     b.Navigation("ListaAulas");
 
-                    b.Navigation("ListaFotografias");
-
                     b.Navigation("ListaTreinamentos");
-                });
-
-            modelBuilder.Entity("Ginasio.Models.Praticantes", b =>
-                {
-                    b.Navigation("ListaFotografias");
                 });
 #pragma warning restore 612, 618
         }

@@ -27,6 +27,7 @@ namespace Ginasio.Data
         public DbSet<Instrutores> Instrutores { get; set; }
         public DbSet<Praticantes> Praticantes { get; set; }
         public DbSet<Treinamentos> Treinamentos { get; set; }
+        public DbSet<Ginasio.Models.Fotografias> Fotografias { get; set; } = default!;
 
     }
 }

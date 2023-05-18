@@ -56,29 +56,50 @@ namespace Ginasio.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Sobrenome,Idade,Sexo,DataNascimento,Morada,Telemovel,Email,DataInscricao,PlanoTreinamento,StatusPagamento")] Praticantes praticantes)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Sobrenome,Idade,Sexo,DataNascimento,Morada,Telemovel,Email,DataInscricao,PlanoTreinamento,StatusPagamento")] Praticantes praticantes, IFormFile fotoPrat)
         {
-            if (ModelState.IsValid)
+            if (fotoPrat == null)
             {
-                _context.Add(praticantes);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // o utilizador não fez upload de uma imagem
+                // vamos adicionar uma imagem prédefinida ao animal
+                praticantes.ListaFotografias
+                      .Add(new Fotografias
+                      {
+                          NomeFicheiro = "noUser.png"
+                      });
             }
-            return View(praticantes);
-        }
-
-        // GET: Praticantes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Praticantes == null)
+            else
             {
-                return NotFound();
-            }
-
-            var praticantes = await _context.Praticantes.FindAsync(id);
-            if (praticantes == null)
-            {
-                return NotFound();
+                // há ficheiro. Mas, será que é uma imagem?
+                if (fotoPrat.ContentType != "image/jpeg" ||
+                    fotoPrat.ContentType != "image/png")
+                {
+                    // o ficheiro carregado não é uma imagem
+                    // o que fazer?
+                    // Vamos fazer o mesmo que quando o utilizador não
+                    // fornece uma imagem
+                    praticantes.ListaFotografias
+                          .Add(new Fotografias
+                          {
+                              NomeFicheiro = "noUser.png"
+                          });
+                }
+                else
+                {
+                    // há imagem!!!
+                    // determinar o nome da imagem
+                    Guid g = Guid.NewGuid();
+                    string nomeFoto = g.ToString();
+                    // obter a extensão do ficheiro
+                    string extensaoNomeFoto = Path.GetExtension(fotoPrat.FileName).ToLower();
+                    nomeFoto += extensaoNomeFoto;
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(praticantes);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
             }
             return View(praticantes);
         }

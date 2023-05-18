@@ -56,13 +56,50 @@ namespace Ginasio.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Sobrenome,Idade,Sexo,DataNascimento,Morada,Telemovel,Email,DataContratacao,Especializacao,Salario")] Instrutores instrutores)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Sobrenome,Idade,Sexo,DataNascimento,Morada,Telemovel,Email,DataContratacao,Especializacao,Salario")] Instrutores instrutores, IFormFile fotoInst)
         {
-            if (ModelState.IsValid)
+            if (fotoInst == null)
             {
-                _context.Add(instrutores);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // o utilizador não fez upload de uma imagem
+                // vamos adicionar uma imagem prédefinida ao animal
+                instrutores.ListaFotografias
+                      .Add(new Fotografias
+                      {
+                          NomeFicheiro = "noUser.png"
+                      });
+            }
+            else
+            {
+                // há ficheiro. Mas, será que é uma imagem?
+                if (fotoInst.ContentType != "image/jpeg" ||
+                    fotoInst.ContentType != "image/png")
+                {
+                    // o ficheiro carregado não é uma imagem
+                    // o que fazer?
+                    // Vamos fazer o mesmo que quando o utilizador não
+                    // fornece uma imagem
+                    instrutores.ListaFotografias
+                          .Add(new Fotografias
+                          {
+                              NomeFicheiro = "noUser.png"
+                          });
+                }
+                else
+                {
+                    // há imagem!!!
+                    // determinar o nome da imagem
+                    Guid g = Guid.NewGuid();
+                    string nomeFoto = g.ToString();
+                    // obter a extensão do ficheiro
+                    string extensaoNomeFoto = Path.GetExtension(fotoInst.FileName).ToLower();
+                    nomeFoto += extensaoNomeFoto;
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(instrutores);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
             }
             return View(instrutores);
         }

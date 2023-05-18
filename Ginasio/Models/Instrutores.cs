@@ -117,5 +117,10 @@ namespace Ginasio.Models
         /// </summary>
         public ICollection<Treinamentos> ListaTreinamentos { get; set; }
 
+        /// <summary>
+        /// lista das fotografias associadas a um instrutor
+        /// </summary>
+        public ICollection<Fotografias> ListaFotografias { get; set; }
+
     }
 }

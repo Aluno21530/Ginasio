@@ -11055,19 +11055,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\joaom\\.nuget\\packages\\": {}
+    "C:\\Users\\gusta\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\joaom\\source\\repos\\Ginasiov2\\Ginasio\\Ginasio.csproj",
+      "projectUniqueName": "C:\\Users\\gusta\\source\\repos\\Ginasio\\Ginasio\\Ginasio.csproj",
       "projectName": "Ginasio",
-      "projectPath": "C:\\Users\\joaom\\source\\repos\\Ginasiov2\\Ginasio\\Ginasio.csproj",
-      "packagesPath": "C:\\Users\\joaom\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\joaom\\source\\repos\\Ginasiov2\\Ginasio\\obj\\",
+      "projectPath": "C:\\Users\\gusta\\source\\repos\\Ginasio\\Ginasio\\Ginasio.csproj",
+      "packagesPath": "C:\\Users\\gusta\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gusta\\source\\repos\\Ginasio\\Ginasio\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\joaom\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\gusta\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
