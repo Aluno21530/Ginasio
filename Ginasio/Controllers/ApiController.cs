@@ -214,5 +214,41 @@ namespace Ginasio.Controllers
 
             return CreatedAtAction(nameof(GetTreinamentos), new { id = treinamento.Id }, treinamento);
         }
+
+        /// <summary>
+        /// GET das fotografias
+        /// </summary>
+        [HttpGet]
+        [Route("fotografias")]
+        public ActionResult GetFotografias()
+
+        {
+            return Ok(_db.Fotografias.ToList());
+        }
+        /// <summary>
+        /// GET dos administradores pelo Id
+        /// </summary>
+        [Route("fotografias/{id}")]
+        [HttpGet]
+        public ActionResult GetFotografiasById(int id)
+        {
+            if (id == 0 || _db.Fotografias.Where(admin => admin.Id == id).Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(_db.Fotografias.Where(admin => admin.Id == id).FirstOrDefault());
+        }
+        /// <summary>
+        /// POST das fotografias
+        /// </summary>
+        [HttpPost("fotografias/create")]
+        public IActionResult CreateFotografia(Fotografias fotografias)
+        {
+
+            _db.Add(fotografias);
+
+            return CreatedAtAction(nameof(GetFotografias), new { id = fotografias.Id }, fotografias);
+        }
     }
 }
