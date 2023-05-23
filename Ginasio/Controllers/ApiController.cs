@@ -7,7 +7,7 @@ namespace Ginasio.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ApiController : Controller
+    public class ApiController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
 
@@ -45,8 +45,9 @@ namespace Ginasio.Controllers
         [HttpPost("administradores/create")]
         public IActionResult CreateAdministrador(Administradores administradores)
         {
-           
+
             _db.Add(administradores);
+            _db.SaveChanges();
 
             return CreatedAtAction(nameof(GetAdministradores), new { id = administradores.Id }, administradores);
         }
@@ -79,6 +80,7 @@ namespace Ginasio.Controllers
         {
 
             _db.Add(aulas);
+            _db.SaveChanges();
 
             return CreatedAtAction(nameof(GetAulas), new { id = aulas.Id }, aulas);
         }
@@ -112,6 +114,7 @@ namespace Ginasio.Controllers
         {
 
             _db.Add(funcionario);
+            _db.SaveChanges();
 
             return CreatedAtAction(nameof(GetFuncionarios), new { id = funcionario.Id }, funcionario);
         }
@@ -145,6 +148,7 @@ namespace Ginasio.Controllers
         {
 
             _db.Add(instrutor);
+            _db.SaveChanges();
 
             return CreatedAtAction(nameof(GetInstrutores), new { id = instrutor.Id }, instrutor);
         }
@@ -178,6 +182,7 @@ namespace Ginasio.Controllers
         {
 
             _db.Add(praticante);
+            _db.SaveChanges();
 
             return CreatedAtAction(nameof(GetPraticantes), new { id = praticante.Id }, praticante);
         }
@@ -211,6 +216,7 @@ namespace Ginasio.Controllers
         {
 
             _db.Add(treinamento);
+            _db.SaveChanges();
 
             return CreatedAtAction(nameof(GetTreinamentos), new { id = treinamento.Id }, treinamento);
         }
@@ -247,6 +253,7 @@ namespace Ginasio.Controllers
         {
 
             _db.Add(fotografias);
+            _db.SaveChanges();
 
             return CreatedAtAction(nameof(GetFotografias), new { id = fotografias.Id }, fotografias);
         }
