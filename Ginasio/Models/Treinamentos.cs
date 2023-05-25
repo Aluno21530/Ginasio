@@ -43,7 +43,7 @@ namespace Ginasio.Models
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
         [DisplayName("Data de fim de treino")]
         [RegularExpression("^(?:(?:31\\/(?:0?[13578]|1[02]))|(?:(?:29|30)\\/(?:0?[1,3-9]|1[0-2]))|(?:29\\/0?2)|(?:(?:0?[1-9])|(?:1\\d)|(?:2[0-8]))\\/(?:0?[1-9]|1[0-2]))\\/(?:[1-9]\\d{3})$", ErrorMessage = "A data deve ser válida e do tipo XX/XX/XXXX")]
-        public DateTime DataTermino { get; set; }
+        public String DataTermino { get; set; }
 
         /// <summary>
         /// Chave forasteira(FK) referente ao instrutor ao qual pertence o treinamento
