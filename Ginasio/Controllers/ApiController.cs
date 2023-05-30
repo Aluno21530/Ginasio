@@ -1,6 +1,5 @@
 ﻿using Ginasio.Data;
 using Ginasio.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
