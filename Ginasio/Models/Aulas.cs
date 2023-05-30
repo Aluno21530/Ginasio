@@ -7,7 +7,7 @@ namespace Ginasio.Models
     {
         public Aulas()
         {
-            ListaPraticantes = new HashSet<Usuarios>();
+            ListaPraticantes = new HashSet<Praticantes>();
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Ginasio.Models
         /// <summary>
         /// Lista de praticantes referentes a uma aula
         /// </summary>
-        public ICollection<Usuarios> ListaPraticantes { get; set; }
+        public ICollection<Praticantes> ListaPraticantes { get; set; }
 
     }
 }

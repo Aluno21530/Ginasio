@@ -24,7 +24,7 @@ namespace Ginasio.Models
         /// </summary>
         [ForeignKey(nameof(Praticante))]  // <=>  [ForeignKey("Animal")]
         public int PraticanteFK { get; set; }
-        public Usuarios Praticante { get; set; }
+        public Praticantes Praticante { get; set; }
 
         /// <summary>
         /// FK para identificar o Instrutor a quem a Fotografia pertence 

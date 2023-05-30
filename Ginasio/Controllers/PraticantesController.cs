@@ -56,7 +56,7 @@ namespace Ginasio.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Sobrenome,Idade,Sexo,DataNascimento,Morada,Telemovel,Email,DataInscricao,PlanoTreinamento,StatusPagamento")] Usuarios praticantes, IFormFile fotoPrat)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Sobrenome,Idade,Sexo,DataNascimento,Morada,Telemovel,Email,DataInscricao,PlanoTreinamento,StatusPagamento")] Praticantes praticantes, IFormFile fotoPrat)
         {
             if (fotoPrat == null)
             {
@@ -109,7 +109,7 @@ namespace Ginasio.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Sobrenome,Idade,Sexo,DataNascimento,Morada,Telemovel,Email,DataInscricao,PlanoTreinamento,StatusPagamento")] Usuarios praticantes)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Sobrenome,Idade,Sexo,DataNascimento,Morada,Telemovel,Email,DataInscricao,PlanoTreinamento,StatusPagamento")] Praticantes praticantes)
         {
             if (id != praticantes.Id)
             {
