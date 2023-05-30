@@ -914,3 +914,5 @@ C:\Users\joaom\source\repos\Ginasiov2\Ginasio\obj\Debug\net7.0\refint\Ginasio.dl
 C:\Users\joaom\source\repos\Ginasiov2\Ginasio\obj\Debug\net7.0\Ginasio.pdb
 C:\Users\joaom\source\repos\Ginasiov2\Ginasio\obj\Debug\net7.0\Ginasio.genruntimeconfig.cache
 C:\Users\joaom\source\repos\Ginasiov2\Ginasio\obj\Debug\net7.0\ref\Ginasio.dll
+C:\Users\gusta\source\repos\Ginasio\Ginasio\bin\Debug\net7.0\FluentAssertions.dll
+C:\Users\gusta\source\repos\Ginasio\Ginasio\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

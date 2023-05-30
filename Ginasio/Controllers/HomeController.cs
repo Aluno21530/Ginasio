@@ -15,7 +15,7 @@ namespace Ginasio.Controllers
 
         public IActionResult Index([FromQuery(Name = "nome")] string nome)
         {
-            Praticantes pt = new Praticantes();
+            Usuarios pt = new Usuarios();
             pt.Nome = nome;
             return View(pt);
         }
