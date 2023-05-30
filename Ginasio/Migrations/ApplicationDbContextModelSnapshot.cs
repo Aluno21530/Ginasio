@@ -311,6 +311,10 @@ namespace Ginasio.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PlanoTreinamento")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

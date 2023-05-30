@@ -1,10 +1,8 @@
 ﻿using Ginasio.Data;
 using Ginasio.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ginasio.Controllers
 {
@@ -18,6 +16,7 @@ namespace Ginasio.Controllers
         {
             _db = context;
         }
+
         /// <summary>
         /// GET dos administradores
         /// </summary>
@@ -158,6 +157,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos praticantes
         /// </summary>
+        [Authorize]
         [Route("praticantes")]
         [HttpGet]
         public ActionResult GetPraticantes()
@@ -167,6 +167,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos praticantes pelo Id
         /// </summary>
+        [Authorize]
         [Route("praticantes/{id}")]
         [HttpGet]
         public ActionResult GetPraticanteById(int id)
@@ -180,6 +181,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// POST dos praticantes
         /// </summary>
+        [Authorize]
         [HttpPost("praticantes/create")]
         public IActionResult CreatePraticante(Praticantes praticante)
         {
