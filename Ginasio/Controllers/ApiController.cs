@@ -3,6 +3,9 @@ using Ginasio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Net;
 
 namespace Ginasio.Controllers
 {
@@ -20,6 +23,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos administradores
         /// </summary>
+        [Authorize]
         [HttpGet]
         [Route("administradores")]
         public ActionResult GetAdministradores()
@@ -30,6 +34,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos administradores pelo Id
         /// </summary>
+        [Authorize]
         [Route("administradores/{id}")]
         [HttpGet]
         public ActionResult GetAdministradoresById(int id)
@@ -44,6 +49,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// POST dos administradores
         /// </summary>
+        [Authorize]
         [HttpPost("administradores/create")]
         public IActionResult CreateAdministrador(Administradores administradores)
         {
@@ -77,6 +83,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// POST das aulas
         /// </summary>
+        [Authorize]
         [HttpPost("aulas/create")]
         public IActionResult CreateAula(Aulas aulas)
         {
@@ -89,6 +96,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos funcionários
         /// </summary>
+        [Authorize]
         [Route("funcionarios")]
         [HttpGet]
         public ActionResult GetFuncionarios()
@@ -98,6 +106,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos funcionários pelo Id
         /// </summary>
+        [Authorize]
         [Route("funcionarios/{id}")]
         [HttpGet]
         public ActionResult GetFuncionarioById(int id)
@@ -111,6 +120,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// POST dos funcionários
         /// </summary>
+        [Authorize]
         [HttpPost("funcionarios/create")]
         public IActionResult CreateFuncionario(FuncionariosLimpeza funcionario)
         {
@@ -123,6 +133,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos instrutores
         /// </summary>
+        [Authorize]
         [Route("instrutores")]
         [HttpGet]
         public ActionResult GetInstrutores()
@@ -132,6 +143,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos instrutores pelo Id
         /// </summary>
+        [Authorize]
         [Route("instrutores/{id}")]
         [HttpGet]
         public ActionResult GetInstrutorById(int id)
@@ -167,7 +179,6 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos praticantes pelo Id
         /// </summary>
-        [Authorize]
         [Route("praticantes/{id}")]
         [HttpGet]
         public ActionResult GetPraticanteById(int id)
@@ -181,14 +192,22 @@ namespace Ginasio.Controllers
         /// <summary>
         /// POST dos praticantes
         /// </summary>
-        [Authorize]
+        
         [HttpPost("praticantes/create")]
-        public IActionResult CreatePraticante(Praticantes praticante)
+        public async Task<IActionResult> CreatePraticanteAsync([FromBody] Praticantes praticante)
         {
-
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            // Verificar se o usuário já existe
+            if (await _db.Praticantes.AnyAsync(u => u.Email == praticante.Email))
+            {
+                return Conflict(new { mensagem = "O usuário já existe" });
+            }
+            // Salvar o novo usuário no banco de dados
             _db.Add(praticante);
-            _db.SaveChanges();
-
+            await _db.SaveChangesAsync();
             return CreatedAtAction(nameof(GetPraticantes), new { id = praticante.Id }, praticante);
         }
         /// <summary>

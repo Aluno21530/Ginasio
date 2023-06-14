@@ -279,6 +279,19 @@ namespace Ginasio.Migrations
                     b.ToTable("Instrutores");
                 });
 
+            modelBuilder.Entity("Ginasio.Models.JWTTokens", b =>
+                {
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("refToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("JWTTokens");
+                });
+
             modelBuilder.Entity("Ginasio.Models.Praticantes", b =>
                 {
                     b.Property<int>("Id")
@@ -374,6 +387,23 @@ namespace Ginasio.Migrations
                     b.HasIndex("InstrutorFK");
 
                     b.ToTable("Treinamentos");
+                });
+
+            modelBuilder.Entity("Ginasio.Models.UsersLogin", b =>
+                {
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("UsersLogin");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

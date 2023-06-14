@@ -124,6 +124,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdHJ1dG9yZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Praticantes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJhdGljYW50ZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Praticantes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJhdGljYW50ZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Praticantes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJhdGljYW50ZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Praticantes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJhdGljYW50ZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Praticantes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJhdGljYW50ZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -150,26 +170,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Treinamentos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJlaW5hbWVudG9zXEluZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Usuarios/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Usuarios/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Usuarios/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Usuarios/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/Usuarios/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/gusta/source/repos/Ginasio/Ginasio/Views/_ViewImports.cshtml]

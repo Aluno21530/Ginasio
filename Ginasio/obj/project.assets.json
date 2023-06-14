@@ -46,22 +46,6 @@
           }
         }
       },
-      "FluentAssertions/6.11.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Configuration.ConfigurationManager": "4.4.0"
-        },
-        "compile": {
-          "lib/net6.0/FluentAssertions.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/FluentAssertions.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -3908,36 +3892,6 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
-      ]
-    },
-    "FluentAssertions/6.11.0": {
-      "sha512": "aBaagwdNtVKkug1F3imGXUlmoBd8ZUZX8oQ5niThaJhF79SpESe1Gzq7OFuZkQdKD5Pa4Mone+jrbas873AT4g==",
-      "type": "package",
-      "path": "fluentassertions/6.11.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "FluentAssertions.png",
-        "fluentassertions.6.11.0.nupkg.sha512",
-        "fluentassertions.nuspec",
-        "lib/net47/FluentAssertions.dll",
-        "lib/net47/FluentAssertions.pdb",
-        "lib/net47/FluentAssertions.xml",
-        "lib/net6.0/FluentAssertions.dll",
-        "lib/net6.0/FluentAssertions.pdb",
-        "lib/net6.0/FluentAssertions.xml",
-        "lib/netcoreapp2.1/FluentAssertions.dll",
-        "lib/netcoreapp2.1/FluentAssertions.pdb",
-        "lib/netcoreapp2.1/FluentAssertions.xml",
-        "lib/netcoreapp3.0/FluentAssertions.dll",
-        "lib/netcoreapp3.0/FluentAssertions.pdb",
-        "lib/netcoreapp3.0/FluentAssertions.xml",
-        "lib/netstandard2.0/FluentAssertions.dll",
-        "lib/netstandard2.0/FluentAssertions.pdb",
-        "lib/netstandard2.0/FluentAssertions.xml",
-        "lib/netstandard2.1/FluentAssertions.dll",
-        "lib/netstandard2.1/FluentAssertions.pdb",
-        "lib/netstandard2.1/FluentAssertions.xml"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -11139,7 +11093,6 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "FluentAssertions >= 6.11.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.5",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 7.0.5",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.5",
@@ -11190,10 +11143,6 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
-          "FluentAssertions": {
-            "target": "Package",
-            "version": "[6.11.0, )"
-          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[7.0.5, )"

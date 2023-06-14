@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Ginasio.Models
 {
-    public class Praticantes
+    public class Praticantes 
     {
         public Praticantes()
         {
@@ -122,6 +122,8 @@ namespace Ginasio.Models
         /// lista das fotografias associadas a um usuário
         /// </summary>
         public ICollection<Fotografias> ListaFotografias { get; set; }
+
+        
 
 
     }

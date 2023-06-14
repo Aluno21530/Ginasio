@@ -8,7 +8,6 @@
     ".NETCoreApp,Version=v7.0": {
       "Ginasio/1.0.0": {
         "dependencies": {
-          "FluentAssertions": "6.11.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.5",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "7.0.5",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.5",
@@ -54,17 +53,6 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.6.0.0",
             "fileVersion": "1.600.22.20503"
-          }
-        }
-      },
-      "FluentAssertions/6.11.0": {
-        "dependencies": {
-          "System.Configuration.ConfigurationManager": "6.0.0"
-        },
-        "runtime": {
-          "lib/net6.0/FluentAssertions.dll": {
-            "assemblyVersion": "6.11.0.0",
-            "fileVersion": "6.11.0.0"
           }
         }
       },
@@ -2427,13 +2415,6 @@
       "sha512": "sha512-EycyMsb6rD2PK9P0SyibFfEhvWWttdrYhyPF4f41uzdB/44yQlV+2Wehxyg489Rj6gbPvSPgbKq0xsHJBhipZA==",
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
-    },
-    "FluentAssertions/6.11.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-aBaagwdNtVKkug1F3imGXUlmoBd8ZUZX8oQ5niThaJhF79SpESe1Gzq7OFuZkQdKD5Pa4Mone+jrbas873AT4g==",
-      "path": "fluentassertions/6.11.0",
-      "hashPath": "fluentassertions.6.11.0.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",

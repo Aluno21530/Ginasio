@@ -1,14 +1,19 @@
 
+using Ginasio;
 using Ginasio.Data;
+using Ginasio.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 
 
+
 var builder = WebApplication.CreateBuilder(args);
+ConfigurationManager configuration = builder.Configuration;
 
 /* *****************************************
  * Add services to the container.
@@ -22,35 +27,35 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddScoped<IPraticantes, PraticanteServices>();
+builder.Services.AddScoped<IJWTTokenServices, JWTServiceManage>(); ;
+
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+     .AddDefaultTokenProviders(); ;
 builder.Services.AddControllersWithViews();
 
-
-
-//É aqui onde é definido para a API que deve-se usar o JWT
-
-var key = Encoding.ASCII.GetBytes(Ginasio.Key.secret);
-
-
-
-builder.Services.AddAuthentication(x =>
+builder.Services.AddAuthentication(k =>
 {
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(x =>
+    k.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    k.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(p =>
 {
-    x.RequireHttpsMetadata = false;
-    x.SaveToken = true;
-    x.TokenValidationParameters = new TokenValidationParameters
+    byte[] key = Encoding.UTF8.GetBytes("JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr");
+    p.SaveToken = true;
+    p.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
         ValidateIssuer = false,
-        ValidateAudience = false
+        ValidateAudience = false,
+        ValidateLifetime = false,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JWKToken:Secret"],
+        ValidAudience = builder.Configuration["JWKToken:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
+
 
 
 var app = builder.Build();
@@ -78,10 +83,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 
 app.UseAuthorization();
 
-app.UseAuthentication();
+
 
 app.MapControllerRoute(
     name: "default",

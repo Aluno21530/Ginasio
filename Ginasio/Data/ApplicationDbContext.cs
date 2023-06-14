@@ -1,4 +1,4 @@
-﻿using FluentAssertions.Common;
+﻿
 using Ginasio.Models;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -30,7 +30,9 @@ namespace Ginasio.Data
         public DbSet<Instrutores> Instrutores { get; set; }
         public DbSet<Praticantes> Praticantes { get; set; }
         public DbSet<Treinamentos> Treinamentos { get; set; }
-        public DbSet<Ginasio.Models.Fotografias> Fotografias { get; set; } = default!;
+        public DbSet<JWTTokens> JWTTokens { get; set; }
+        public DbSet<UsersLogin> UsersLogin { get; set; }
+        public DbSet<Fotografias> Fotografias { get; set; } = default!;
 
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ginasio.Data;
 using Ginasio.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Ginasio.Controllers
 {
