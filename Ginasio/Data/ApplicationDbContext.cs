@@ -30,8 +30,6 @@ namespace Ginasio.Data
         public DbSet<Instrutores> Instrutores { get; set; }
         public DbSet<Praticantes> Praticantes { get; set; }
         public DbSet<Treinamentos> Treinamentos { get; set; }
-        public DbSet<JWTTokens> JWTTokens { get; set; }
-        public DbSet<UsersLogin> UsersLogin { get; set; }
         public DbSet<Fotografias> Fotografias { get; set; } = default!;
 
     }

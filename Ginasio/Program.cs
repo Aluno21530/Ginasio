@@ -1,13 +1,11 @@
-
-using Ginasio;
 using Ginasio.Data;
 using Ginasio.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
 
 
 
@@ -21,41 +19,39 @@ ConfigurationManager configuration = builder.Configuration;
 
 
 
-// indicação de onde está a Base de Dados
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("A base de dados referenciada pela Connection string 'DefaultConnection' não está a funcionar.");
-// instruções para adicionar o serviço de acesso à BD (neste caso, SQL Server)
+// indicaï¿½ï¿½o de onde estï¿½ a Base de Dados
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("A base de dados referenciada pela Connection string 'DefaultConnection' nï¿½o estï¿½ a funcionar.");
+// instruï¿½ï¿½es para adicionar o serviï¿½o de acesso ï¿½ BD (neste caso, SQL Server)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddScoped<IPraticantes, PraticanteServices>();
-builder.Services.AddScoped<IJWTTokenServices, JWTServiceManage>(); ;
 
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
-     .AddDefaultTokenProviders(); ;
+     .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddAuthentication(k =>
+builder.Services.AddRazorPages();
+builder.Services.AddAuthentication(options =>
 {
-    k.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    k.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(p =>
-{
-    byte[] key = Encoding.UTF8.GetBytes("JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr");
-    p.SaveToken = true;
-    p.TokenValidationParameters = new TokenValidationParameters
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}) .AddJwtBearer(options =>
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = false,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["JWKToken:Secret"],
-        ValidAudience = builder.Configuration["JWKToken:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(key)
-    };
-});
-
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateActor = true,
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            RequireExpirationTime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration.GetSection("JWT:Issuer").Value,
+            ValidAudience = builder.Configuration.GetSection("JWT:Audience").Value,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TtRNWIPFWEiy_8NAPeLUdA"))
+        };
+    }
+);
+builder.Services.AddTransient<IAuthServices, AuthServices>();
 
 
 var app = builder.Build();
@@ -94,5 +90,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
 
 app.Run();

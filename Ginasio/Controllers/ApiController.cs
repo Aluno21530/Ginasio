@@ -1,11 +1,11 @@
 ﻿using Ginasio.Data;
 using Ginasio.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Net;
+using Ginasio.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Ginasio.Controllers
 {
@@ -14,10 +14,13 @@ namespace Ginasio.Controllers
     public class ApiController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ApiController(ApplicationDbContext context)
+
+        public ApiController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _db = context;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -192,7 +195,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// POST dos praticantes
         /// </summary>
-        
+
         [HttpPost("praticantes/create")]
         public async Task<IActionResult> CreatePraticanteAsync([FromBody] Praticantes praticante)
         {
@@ -200,15 +203,34 @@ namespace Ginasio.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             // Verificar se o usuário já existe
             if (await _db.Praticantes.AnyAsync(u => u.Email == praticante.Email))
             {
                 return Conflict(new { mensagem = "O usuário já existe" });
             }
+
+            var username = praticante.Email.Split()[0];
             // Salvar o novo usuário no banco de dados
-            _db.Add(praticante);
-            await _db.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetPraticantes), new { id = praticante.Id }, praticante);
+            var loginUser = new LoginUser
+            {
+                Username = username,
+                Password = praticante.Password
+            };
+            var identityUser = new IdentityUser
+            {
+                UserName = loginUser.Username,
+                Email = praticante.Email
+            };
+            var result = await _userManager.CreateAsync(identityUser, loginUser.Password);
+            if (result.Succeeded)
+            {
+                _db.Add(praticante);
+                await _db.SaveChangesAsync();
+                return CreatedAtAction(nameof(GetPraticantes), new { id = praticante.Id }, praticante);
+            }
+
+            return BadRequest("Ocorreu algum erro");
         }
         /// <summary>
         /// GET dos treinamentos
@@ -281,5 +303,19 @@ namespace Ginasio.Controllers
 
             return CreatedAtAction(nameof(GetFotografias), new { id = fotografias.Id }, fotografias);
         }
+        private IdentityUser CreateUser()
+        {
+            try
+            {
+                return Activator.CreateInstance<IdentityUser>();
+            }
+            catch
+            {
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
+                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+            }
+        }
+        
     }
 }

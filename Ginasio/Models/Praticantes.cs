@@ -109,6 +109,11 @@ namespace Ginasio.Models
         public string StatusPagamento { get; set; }
 
         /// <summary>
+        /// Atributo para fazer a ligação com Identity
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
         /// Lista de aulas em que o usuário participa
         /// </summary>
         public ICollection<Aulas> ListaAulas { get; set; }
