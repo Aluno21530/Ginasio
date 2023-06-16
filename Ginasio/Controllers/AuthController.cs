@@ -15,18 +15,6 @@ namespace Ginasio.Controllers
         public AuthController(IAuthServices authService) {
             _authService = authService;
         } 
-
-
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(LoginUser user)
-        {
-            var result =  await _authService.Register(user);
-            if(result)
-            {
-                return Ok("Usuário cadastrado com sucesso!");
-            }
-            return BadRequest("Falha na criação de usuário");
-        }
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginUser user)
         {
