@@ -1,5 +1,6 @@
 ﻿using Ginasio.Models;
 using Ginasio.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,15 @@ namespace Ginasio.Controllers
             }
 
             return NotFound("Credenciais inválidas");
+        }
+
+        [Route("test")]
+        [HttpGet]
+        [Authorize]
+        public ActionResult Test()
+        {
+            return Ok("Test");
+
         }
     }
 }

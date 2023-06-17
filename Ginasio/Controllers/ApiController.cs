@@ -182,11 +182,12 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos praticantes pelo Id
         /// </summary>
+        [Authorize]
         [Route("praticantes/{id}")]
         [HttpGet]
         public ActionResult GetPraticanteById(int id)
         {
-            if (id == 0 || _db.Praticantes.Where(admin => admin.Id == id).Count() == 0)
+            if (id== 0 || _db.Praticantes.Where(admin => admin.Id == id).Count() == 0 )
             {
                 return NotFound();
             }
@@ -195,7 +196,6 @@ namespace Ginasio.Controllers
         /// <summary>
         /// POST dos praticantes
         /// </summary>
-
         [HttpPost("praticantes/create")]
         public async Task<IActionResult> CreatePraticanteAsync([FromBody] Praticantes praticante)
         {
@@ -221,7 +221,10 @@ namespace Ginasio.Controllers
             {
                 UserName = loginUser.Username,
                 Email = praticante.Email
+                
             };
+            var userId = await _userManager.GetUserIdAsync(identityUser);
+            praticante.UserId = userId;
             var result = await _userManager.CreateAsync(identityUser, loginUser.Password);
             if (result.Succeeded)
             {

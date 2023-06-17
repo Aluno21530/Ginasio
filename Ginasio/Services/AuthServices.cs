@@ -54,7 +54,7 @@ namespace Ginasio.Services
             var securityKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes("TtRNWIPF2AWEiy_8NAPesssLUdAJKABSKkajakaao2221223"));
             var signingCred = new SigningCredentials(
-                    securityKey, SecurityAlgorithms.HmacSha256
+                    securityKey, SecurityAlgorithms.HmacSha256Signature
                 );
             var securityToken = new JwtSecurityToken(
                     claims: claims,

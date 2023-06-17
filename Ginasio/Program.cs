@@ -47,7 +47,7 @@ builder.Services.AddAuthentication(options =>
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration.GetSection("JWT:Issuer").Value,
             ValidAudience = builder.Configuration.GetSection("JWT:Audience").Value,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TtRNWIPFWEiy_8NAPeLUdA"))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TtRNWIPF2AWEiy_8NAPesssLUdAJKABSKkajakaao2221223"))
         };
     }
 );
