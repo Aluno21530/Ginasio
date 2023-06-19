@@ -65,6 +65,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET das aulas
         /// </summary>
+        [Authorize]
         [Route("aulas")]
         [HttpGet]
         public ActionResult GetAulas() {
@@ -73,6 +74,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET das aulas pelo Id
         /// </summary>
+        [Authorize]
         [Route("aulas/{id}")]
         [HttpGet]
         public ActionResult GetAulasById(int id)
@@ -241,6 +243,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos treinamentos
         /// </summary>
+        [Authorize]
         [Route("treinamentos")]
         [HttpGet]
         public ActionResult GetTreinamentos()
@@ -250,6 +253,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos treinamentos pelo Id
         /// </summary>
+        [Authorize]
         [Route("treinamentos/{id}")]
         [HttpGet]
         public ActionResult GetTreinamentoById(int id)
@@ -263,6 +267,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// POST dos administradores
         /// </summary>
+        [Authorize]
         [HttpPost("treinamentos/create")]
         public IActionResult CreateTreinamento(Treinamentos treinamento)
         {
@@ -276,6 +281,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET das fotografias
         /// </summary>
+        [Authorize]
         [HttpGet]
         [Route("fotografias")]
         public ActionResult GetFotografias()
@@ -286,6 +292,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos administradores pelo Id
         /// </summary>
+        [Authorize]
         [Route("fotografias/{id}")]
         [HttpGet]
         public ActionResult GetFotografiasById(int id)
@@ -300,6 +307,7 @@ namespace Ginasio.Controllers
         /// <summary>
         /// POST das fotografias
         /// </summary>
+        [Authorize]
         [HttpPost("fotografias/create")]
         public IActionResult CreateFotografia(Fotografias fotografias)
         {
@@ -308,19 +316,6 @@ namespace Ginasio.Controllers
             _db.SaveChanges();
 
             return CreatedAtAction(nameof(GetFotografias), new { id = fotografias.Id }, fotografias);
-        }
-        private IdentityUser CreateUser()
-        {
-            try
-            {
-                return Activator.CreateInstance<IdentityUser>();
-            }
-            catch
-            {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
-            }
         }
         
     }
