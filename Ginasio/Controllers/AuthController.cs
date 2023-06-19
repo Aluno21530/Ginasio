@@ -1,8 +1,7 @@
-﻿using Ginasio.Models;
+﻿using Ginasio.Data;
+using Ginasio.Models;
 using Ginasio.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ginasio.Controllers
@@ -28,12 +27,16 @@ namespace Ginasio.Controllers
             if (result)
             {
                 var tokenString = _authService.GenerateTokenString(user);
-                return Ok(tokenString);
+                var resposta = new
+                {
+                    token = tokenString,
+                    username = user.Username
+                };
+                return Ok(resposta);
             }
 
             return NotFound("Credenciais inválidas");
         }
-
         [Route("test")]
         [HttpGet]
         [Authorize]

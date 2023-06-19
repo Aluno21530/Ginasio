@@ -12,6 +12,9 @@ namespace Ginasio.Data
     /// </summary>
     public class ApplicationDbContext : IdentityDbContext
     {
+        public ApplicationDbContext()
+        {
+        }
 
         public ApplicationDbContext(
            DbContextOptions<ApplicationDbContext> options)
@@ -29,6 +32,7 @@ namespace Ginasio.Data
         public DbSet<FuncionariosLimpeza> FuncionariosLimpeza { get; set; }
         public DbSet<Instrutores> Instrutores { get; set; }
         public DbSet<Praticantes> Praticantes { get; set; }
+        public DbSet<LoginUser> LoginUser { get; set; } 
         public DbSet<Treinamentos> Treinamentos { get; set; }
         public DbSet<Fotografias> Fotografias { get; set; } = default!;
 

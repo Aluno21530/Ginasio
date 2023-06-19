@@ -180,18 +180,18 @@ namespace Ginasio.Controllers
             return Ok(_db.Praticantes.ToList());
         }
         /// <summary>
-        /// GET dos praticantes pelo Id
+        /// GET dos praticantes pelo Email
         /// </summary>
         [Authorize]
-        [Route("praticantes/{id}")]
+        [Route("praticantes/{email}")]
         [HttpGet]
-        public ActionResult GetPraticanteById(int id)
+        public ActionResult GetPraticanteByEmail(string email)
         {
-            if (id== 0 || _db.Praticantes.Where(admin => admin.Id == id).Count() == 0 )
+            if (email == null || _db.Praticantes.Where(admin => admin.Email == email).Count() == 0 )
             {
                 return NotFound();
             }
-            return Ok(_db.Praticantes.Where(admin => admin.Id == id).FirstOrDefault());
+            return Ok(_db.Praticantes.Where(admin => admin.Email == email).FirstOrDefault());
         }
         /// <summary>
         /// POST dos praticantes
@@ -209,7 +209,10 @@ namespace Ginasio.Controllers
             {
                 return Conflict(new { mensagem = "O usuário já existe" });
             }
-
+            if(praticante == null) {
+                return BadRequest("Insira as informações necessárias");
+            
+            }
             var username = praticante.Email.Split()[0];
             // Salvar o novo usuário no banco de dados
             var loginUser = new LoginUser
@@ -220,14 +223,14 @@ namespace Ginasio.Controllers
             var identityUser = new IdentityUser
             {
                 UserName = loginUser.Username,
-                Email = praticante.Email
+                Email = praticante.Email,
                 
             };
             var userId = await _userManager.GetUserIdAsync(identityUser);
-            praticante.UserId = userId;
             var result = await _userManager.CreateAsync(identityUser, loginUser.Password);
             if (result.Succeeded)
             {
+                praticante.UserId = userId;
                 _db.Add(praticante);
                 await _db.SaveChangesAsync();
                 return CreatedAtAction(nameof(GetPraticantes), new { id = praticante.Id }, praticante);

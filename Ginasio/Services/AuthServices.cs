@@ -43,10 +43,10 @@ namespace Ginasio.Services
             return await _userManager.CheckPasswordAsync(identityUser, user.Password);
         }
 
-        public string GenerateTokenString(LoginUser user)
+        public async Task<string> GenerateTokenString(LoginUser user)
         {
 
-            IEnumerable<System.Security.Claims.Claim> claims = new List<Claim>
+            IEnumerable<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, user.Username),
 

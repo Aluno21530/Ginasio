@@ -279,6 +279,20 @@ namespace Ginasio.Migrations
                     b.ToTable("Instrutores");
                 });
 
+            modelBuilder.Entity("Ginasio.Models.LoginUser", b =>
+                {
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Username");
+
+                    b.ToTable("LoginUser");
+                });
+
             modelBuilder.Entity("Ginasio.Models.Praticantes", b =>
                 {
                     b.Property<int>("Id")
