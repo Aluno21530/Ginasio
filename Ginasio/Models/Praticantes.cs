@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Ginasio.Models
 {
-    public class Praticantes 
+    public class Praticantes  
     {
         public Praticantes()
         {
@@ -107,12 +107,6 @@ namespace Ginasio.Models
         /// </summary>
         [RegularExpression("^(ativo|inativo)$", ErrorMessage = "O status de pagamento deve ser 'ativo' ou 'inativo'")]
         public string StatusPagamento { get; set; }
-
-        /// <summary>
-        /// Atributo para fazer a ligação com Identity
-        /// </summary>
-        public string UserId { get; set; }
-
         /// <summary>
         /// Lista de aulas em que o usuário participa
         /// </summary>

@@ -3,9 +3,8 @@ using Ginasio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Ginasio.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace Ginasio.Controllers
 {
@@ -65,7 +64,6 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET das aulas
         /// </summary>
-        [Authorize]
         [Route("aulas")]
         [HttpGet]
         public ActionResult GetAulas() {
@@ -74,7 +72,6 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET das aulas pelo Id
         /// </summary>
-        [Authorize]
         [Route("aulas/{id}")]
         [HttpGet]
         public ActionResult GetAulasById(int id)
@@ -182,7 +179,31 @@ namespace Ginasio.Controllers
             return Ok(_db.Praticantes.ToList());
         }
         /// <summary>
-        /// GET dos praticantes pelo Email
+        /// GET das aulas de um praticante, dado seu email
+        /// </summary>
+        
+        [Route("praticantes/{email}/aulas")]
+        [HttpGet]
+        public ActionResult GetAulasByEmail(string email)
+        {
+            var praticante = _db.Praticantes.Where(admin => admin.Email == email).FirstOrDefault();
+            var aulas = praticante.ListaAulas.ToList();
+            return Ok(aulas);
+        }
+        /// <summary>
+        /// GET dos treinos de um praticante, dado seu email
+        /// </summary>
+        
+        [Route("praticantes/{email}/treinos")]
+        [HttpGet]
+        public ActionResult GetTreinosByEmail(string email)
+        {
+            var praticante = _db.Praticantes.Where(admin => admin.Email == email).FirstOrDefault();
+            var treinos = praticante.ListaTreinamentos.ToList();
+            return Ok(treinos);
+        }
+        /// <summary>
+        /// GET do praticante pelo Email
         /// </summary>
         [Authorize]
         [Route("praticantes/{email}")]
@@ -215,7 +236,7 @@ namespace Ginasio.Controllers
                 return BadRequest("Insira as informações necessárias");
             
             }
-            var username = praticante.Email.Split()[0];
+            var username = praticante.Email.Split('@')[0];
             // Salvar o novo usuário no banco de dados
             var loginUser = new LoginUser
             {
@@ -232,7 +253,7 @@ namespace Ginasio.Controllers
             var result = await _userManager.CreateAsync(identityUser, loginUser.Password);
             if (result.Succeeded)
             {
-                praticante.UserId = userId;
+                _db.Add(loginUser);
                 _db.Add(praticante);
                 await _db.SaveChangesAsync();
                 return CreatedAtAction(nameof(GetPraticantes), new { id = praticante.Id }, praticante);
@@ -240,10 +261,89 @@ namespace Ginasio.Controllers
 
             return BadRequest("Ocorreu algum erro");
         }
+        [Authorize]
+        [HttpPut("praticantes/edit/{email}")]
+        public async Task<IActionResult> UpdatePraticanteAsync(string? email, [FromBody] Praticantes praticante)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
+                return BadRequest(errors);
+            }
+
+            var praticanteExistente = await _db.Praticantes.FirstOrDefaultAsync(p => p.Email == email);
+
+            if (praticanteExistente == null)
+            {
+                return NotFound();
+            }
+
+            if (await _db.Praticantes.AnyAsync(u => u.Email == praticante.Email && u.Id != praticanteExistente.Id))
+            {
+                return Conflict(new { mensagem = "O email já está sendo usado por outro praticante." });
+            }
+
+            var usernameUser = praticanteExistente.Email.Split('@')[0];
+            var identityExistente = await _userManager.FindByEmailAsync(praticanteExistente.Email);
+            var userExistente = await _db.LoginUser.FirstOrDefaultAsync(p => p.Username == usernameUser);
+
+            if (userExistente != null)
+            {
+                _db.LoginUser.Remove(userExistente);
+                await _db.SaveChangesAsync();
+            }
+            var newUser = new LoginUser
+            {
+                Username = praticante.Email.Split('@')[0],
+                Password = praticante.Password
+            };
+            praticanteExistente.Password = praticante.Password;
+            praticanteExistente.Morada = praticante.Morada;
+            praticanteExistente.Telemovel = praticante.Telemovel;
+            praticanteExistente.Email = praticante.Email;
+            identityExistente.UserName = praticante.Email.Split('@')[0];
+            identityExistente.Email = praticante.Email;
+
+            await _userManager.UpdateAsync(identityExistente);
+             _db.LoginUser.Add(newUser);
+            await _db.SaveChangesAsync();
+
+            return Ok(praticante);
+        }
+
+        [Authorize]
+        [HttpDelete("praticantes/delete/{email}")]
+        public async Task<IActionResult> DeletePraticanteAsync(string? email)
+        {
+            var praticanteExistente = await _db.Praticantes.FirstOrDefaultAsync(p => p.Email == email);
+
+            if (praticanteExistente == null)
+            {
+                return NotFound();
+            }
+
+            var usernameUser = praticanteExistente.Email.Split('@')[0];
+            var identityExistente = await _userManager.FindByEmailAsync(praticanteExistente.Email);
+            var userExistente = await _db.LoginUser.FirstOrDefaultAsync(p => p.Username == usernameUser);
+
+            if (userExistente != null)
+            {
+                _db.LoginUser.Remove(userExistente);
+                await _db.SaveChangesAsync();
+            }
+
+            _db.Praticantes.Remove(praticanteExistente);
+            await _db.SaveChangesAsync();
+
+            await _userManager.DeleteAsync(identityExistente);
+
+            return Ok();
+        }
+
+
         /// <summary>
         /// GET dos treinamentos
         /// </summary>
-        [Authorize]
         [Route("treinamentos")]
         [HttpGet]
         public ActionResult GetTreinamentos()
@@ -253,7 +353,6 @@ namespace Ginasio.Controllers
         /// <summary>
         /// GET dos treinamentos pelo Id
         /// </summary>
-        [Authorize]
         [Route("treinamentos/{id}")]
         [HttpGet]
         public ActionResult GetTreinamentoById(int id)
